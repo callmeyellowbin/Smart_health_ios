@@ -24,24 +24,18 @@ static UIView* pContentVIew = nil;
 
 @implementation WebAppController
 
-- (void)loadView
-{
-    [super loadView];
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
     if(pContentVIew == nil)
         pContentVIew = [[UIView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview: pContentVIew];
     
     PDRCore *h5Engine = [PDRCore Instance];
     [self setStatusBarStyle:h5Engine.settings.statusBarStyle];
-    _isFullScreen = [UIApplication sharedApplication].statusBarHidden;
-    if ( _isFullScreen != h5Engine.settings.fullScreen ) {
-        _isFullScreen = h5Engine.settings.fullScreen;
-        if ( [self  respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)] ) {
-            [self setNeedsStatusBarAppearanceUpdate];
-        } else {
-            [[UIApplication sharedApplication] setStatusBarHidden:_isFullScreen];
-        }
-    }
+    
+    [self.navigationController setNavigationBarHidden:YES];
+    
     h5Engine.coreDeleagete = self;
     h5Engine.persentViewController = self;
     
@@ -58,15 +52,23 @@ static UIView* pContentVIew = nil;
     [[PDRCore Instance] setContainerView:pContentVIew];
     
     // 传入参数可以在页面中通过plus.runtime.arguments参数获取
-    NSString* pArgus = @"id=plus.runtime.arguments"; 
+    NSString* pArgus = @"id=plus.runtime.arguments";
     // 启动该应用
-//    pAppHandle = [[[PDRCore Instance] appManager] openAppAtLocation:pWWWPath withIndexPath:@"index.html" withArgs:pArgus withDelegate:nil];
+    pAppHandle = [[[PDRCore Instance] appManager] openAppAtLocation:pWWWPath withIndexPath:@"index2.html" withArgs:pArgus withDelegate:nil];
     
-    pAppHandle = [[[PDRCore Instance] appManager] openAppWithAppid:pWWWPath withArgs:pArgus withDelegate:nil];
+    //    pAppHandle = [[[PDRCore Instance] appManager] openAppWithAppid:pWWWPath withArgs:pArgus withDelegate:nil];
     
     
     // 如果应用可能会重复打开的话建议使用restart方法
-    //[[[PDRCore Instance] appManager] restart:pAppHandle];
+    [[[PDRCore Instance] appManager] restart:pAppHandle];
+    
+}
+
+- (void)loadView
+{
+    [super loadView];
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {

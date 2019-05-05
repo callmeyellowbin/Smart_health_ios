@@ -2,6 +2,6 @@
 <HBuilder debug="true" version="1.9.9.56853">
     <!--应用节点-->
     <apps>
-        <app appid="HelloH5" appver="1.0.1"/>
+        <app appid="H5030DA46" appver="1.0.0.181027_alpha"/>
     </apps>
 </HBuilder>
