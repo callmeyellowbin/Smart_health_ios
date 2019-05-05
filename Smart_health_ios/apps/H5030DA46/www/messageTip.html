@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>消息通知</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script type="text/javascript" src="js/rem.js"></script>
+		<script type="text/javascript" src="js/iconfont.js"></script>
+		<style>
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="header" style="background-image: url(img/background.svg);background-size:cover;height: 1.4rem;">
+			<div class="baike-header">
+				<div class="baike-header-left" id="back">
+					<img src="img/return.png" />
+				</div>
+				<div class="baike-header-right">
+					消息
+				</div>
+			</div>
+		</div>
+		<div class="mui-scroll-wrapper" style="margin-top: 1.41rem;">
+			<div class="mui-scroll">
+				<!--主要内容-->
+				<div class="tipContent">
+					<div class="tipList">
+						<!--单条消息-->
+						<div class="tipList-One">
+							<div class="tipList-One-left">
+								<img src="img/Rectangle 14.png" />
+							</div>
+							<div class="tipList-One-right">
+								<div class="tipList-One-right-title">
+									健康提醒<span>18/05/23</span>
+								</div>
+								<div class="tipList-One-right-content">
+									您的母亲张霞今日血糖较高，请注意！
+								</div>
+							</div>
+						</div>
+						<div class="tipList-One">
+							<div class="tipList-One-left">
+								<img src="img/Rectangle 14.png" />
+							</div>
+							<div class="tipList-One-right">
+								<div class="tipList-One-right-title">
+									健康提醒<span>18/05/22</span>
+								</div>
+								<div class="tipList-One-right-content">
+									您的母亲张霞今日血糖较高，请注意！
+								</div>
+							</div>
+						</div>
+						<div class="tipList-One">
+							<div class="tipList-One-left">
+								<img src="img/Rectangle 14.png" />
+							</div>
+							<div class="tipList-One-right">
+								<div class="tipList-One-right-title">
+									健康提醒<span>18/05/22</span>
+								</div>
+								<div class="tipList-One-right-content">
+									您的父亲刘应今日血压较高，请注意！
+								</div>
+							</div>
+						</div>
+						<div class="tipList-One">
+							<div class="tipList-One-left">
+								<img src="img/Rectangle 14.png" />
+							</div>
+							<div class="tipList-One-right">
+								<div class="tipList-One-right-title">
+									健康提醒<span>18/05/20</span>
+								</div>
+								<div class="tipList-One-right-content">
+									您的母亲张霞今日血糖较高，请注意！
+								</div>
+							</div>
+						</div>
+						<div class="tipList-One">
+							<div class="tipList-One-left">
+								<img src="img/Rectangle 14.png" />
+							</div>
+							<div class="tipList-One-right">
+								<div class="tipList-One-right-title">
+									健康提醒<span>18/05/19</span>
+								</div>
+								<div class="tipList-One-right-content">
+									您的母亲张霞今日血糖较高，请注意！
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--主要内容结束-->
+
+				<!--底部-->
+				<div class="footer">
+
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+
+				//滚动
+				mui('.mui-scroll-wrapper').scroll({
+					scrollY: true,
+					deceleration: 0.0003,
+					indicators: false
+				});
+			});
+			
+			
+
+			//返回
+			document.getElementById('back').addEventListener('tap', function() {
+				mui.back();
+			});
+			
+			
+		</script>
+	</body>
+
+</html>

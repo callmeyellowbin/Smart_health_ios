@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>专家列表</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/swiper.min.css" />
+		<script type="text/javascript" src="js/rem.js"></script>
+		<script type="text/javascript" src="js/iconfont.js"></script>
+	</head>
+
+	<body>
+			<div class="header" style="background-image: url(img/background.svg);background-size:cover;height: 1.4rem;">
+				<div class="baike-header">
+					<div class="baike-header-left" id="back">
+						<img src="img/return.png" />
+					</div>
+					<div class="baike-header-right">
+						家庭医生
+					</div>
+				</div>
+			</div>
+				
+		<div class="mui-scroll-wrapper" style="margin-top: 1.5rem;" id="doctor-list">
+			<div class="mui-scroll">		
+				<!--主功能区-->
+                <div class="doctor-list">
+                	<!--单个医生-->
+                	<div class="doctor-one" v-for="item in doctorList"
+                		:name='item.name' :hospital='item.hospital' :physicianship='item.physicianship'
+                		:department='item.department' :desc='item.description' :doctorId='item.id'
+                		>
+                		<div class="doctor-one-left">
+                			<img src="img/family1.png" />
+                		</div>
+                		<div class="doctor-one-right">
+                			<div class="doctor-name">
+                				{{item.name}}
+                				<div class="doctor-status">
+                					{{item.hospital}}
+                				</div>
+                			</div>
+                			<div class="doctor-message">
+                				{{item.department}}
+                				&nbsp;&nbsp;&nbsp;
+                				{{item.physicianship}}
+                			</div>
+                		</div>
+                	</div>
+                </div> 
+			    <div style="width: 7.5rem;height: 0.4rem;"></div>
+				<div class="fool" v-if="doctorList.length%10 == 0" onclick="readmore();getDoctorList();"><span>点击查看更多</span></div>
+				<div style="width: 7.5rem;height: 0.6rem;"></div>
+			    
+			    
+			</div>
+		</div>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script type="text/javascript" src="js/swiper.min.js"></script>
+		<script type="text/javascript" src="js/configUrl.js"></script>
+		<script type="text/javascript" src="js/utils/http.js"></script>
+		<!--<script type="text/javascript" src="js/menu.js"></script>-->
+		<script>
+			mui.init();
+			var vm = new Vue({
+				el: "#doctor-list",
+				data: {
+					doctorList: '',
+					limit: 10,
+				},
+			})
+			mui.plusReady(function() {
+
+				//滚动
+				mui('.mui-scroll-wrapper').scroll({
+					scrollY: true,
+					deceleration: 0.0003,
+					indicators: false
+				});
+				
+				
+				
+				
+				//监听专家详情
+//				document.getElementById('quanbu').addEventListener('tap', function() {
+//					mui.openWindow({
+//						url: 'consultOne.html',
+//						id: 'consultOne'
+//					})
+//				});
+
+				//获取医生列表数据
+				getDoctorList();
+
+				//返回
+				document.getElementById('back').addEventListener('tap', function() {
+					mui.back();
+				});
+				
+				mui('.doctor-list').on('tap', '.doctor-one', function() {
+					var thisDoctor = this;
+					var doctorName = thisDoctor.getAttribute('name'),
+						doctorHospital = thisDoctor.getAttribute('hospital'),
+						doctorPhysicianship = thisDoctor.getAttribute('physicianship'),
+						doctorDepartment = thisDoctor.getAttribute('department'),
+						doctorDesc = thisDoctor.getAttribute('desc'),
+						doctorId = thisDoctor.getAttribute('doctorId');
+					mui.openWindow({
+						url: 'consultOne.html',
+						id: 'consultOne',
+						extras:{
+							doctorName:doctorName,
+							doctorHospital:doctorHospital,
+							doctorPhysicianship:doctorPhysicianship,
+							doctorDepartment:doctorDepartment,
+							doctorDesc:doctorDesc,
+							doctorId:doctorId
+						}
+					})
+				});	
+				
+			});
+			
+			//获取医生列表数据
+				function getDoctorList(){
+					var params = {
+						page: 1,
+						limit: vm.limit,
+					}
+					doGet('/doctor/findList', params, function(data) {
+						if(data.code != '0') {
+							console.log('链接失败，请检查网络');
+						} else {
+							var dataJson = data.data;
+							vm.doctorList = dataJson;
+//							console.log('data '+JSON.stringify(dataJson));
+						}
+					})
+				}
+				
+			//查看更多
+			function readmore() {
+				vm.limit = vm.limit + 10;
+			}
+		</script>
+	</body>
+
+</html>
